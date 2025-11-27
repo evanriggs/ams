@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Section, SectionHeader, Button, Card, CardTitle, CardContent } from '@/components/ui';
 import { products, categories, ProductCategory } from '@/data/products';
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const initialCategory = (searchParams.get('category') as ProductCategory | 'all') || 'all';
   const highlightedProduct = searchParams.get('highlight');
@@ -248,6 +248,21 @@ export default function ProductsPage() {
         </div>
       </Section>
     </>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ocean-deep mx-auto mb-4"></div>
+          <p className="text-driftwood">Loading products...</p>
+        </div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   );
 }
 
