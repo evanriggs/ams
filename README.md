@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AM Seafood - American Made Seafood Website
 
-## Getting Started
+A production-ready, mobile-responsive website for American Made Seafood, a fish trading business based in Fernandina Beach, Florida.
 
-First, run the development server:
+## 🦐 About
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+American Made Seafood (AM Seafood) is a family-owned seafood wholesaler focused on high-quality, sustainably sourced American-caught seafood. This website serves restaurants, distributors, grocery chains, and culinary professionals nationwide.
+
+**Tagline:** "American Caught. American Made."
+
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Fonts:** Playfair Display (headings) + Source Sans 3 (body)
+
+## 📁 Project Structure
+
+```
+am-seafood/
+├── public/
+│   └── images/           # Product and hero images (add your own)
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx    # Root layout with header/footer
+│   │   ├── page.tsx      # Home page
+│   │   ├── about/        # About page
+│   │   ├── products/     # Products page with filtering
+│   │   ├── sourcing/     # Sourcing & Quality page
+│   │   ├── wholesale/    # Wholesale inquiry page
+│   │   └── contact/      # Contact page
+│   ├── components/
+│   │   ├── layout/       # Header, Footer
+│   │   └── ui/           # Reusable components (Button, Card, Section, FormField)
+│   └── data/
+│       └── products.ts   # Product data and utilities
+├── tailwind.config.ts
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18.17 or later
+- npm (comes with Node.js)
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Navigate to the project directory:
+   ```bash
+   cd am-seafood
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Build for Production
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm start
+```
+
+## 📄 Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Home | `/` | Hero section, features, featured products, testimonials |
+| About | `/about` | Roger Riggs' story, company values, timeline |
+| Products | `/products` | Product grid with category filtering and search |
+| Sourcing & Quality | `/sourcing` | Sourcing practices, quality standards, certifications |
+| Wholesale | `/wholesale` | Services overview and wholesale inquiry form |
+| Contact | `/contact` | Contact information and general contact form |
+
+## 🔌 API Integration Points
+
+The forms are currently set up to log to the console. To connect to a real backend:
+
+### Contact Form (`/contact`)
+```typescript
+// In src/app/contact/page.tsx, replace the console.log with:
+const response = await fetch('/api/contact', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData),
+});
+```
+
+### Wholesale Inquiry Form (`/wholesale`)
+```typescript
+// In src/app/wholesale/page.tsx, replace the console.log with:
+const response = await fetch('/api/wholesale', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData),
+});
+```
+
+### Dynamic Products
+To fetch products from an API instead of the static data file:
+```typescript
+// Replace the import from '@/data/products' with API calls:
+const products = await fetch('/api/products').then(res => res.json());
+```
+
+## 🎨 Customization
+
+### Colors
+Edit the CSS variables in `src/app/globals.css`:
+```css
+:root {
+  --ocean-deep: #0c4a6e;
+  --ocean-mid: #0369a1;
+  --coral: #f97316;
+  /* ... */
+}
+```
+
+### Products
+Edit the product data in `src/data/products.ts` to add, remove, or modify products.
+
+### Images
+Add images to `public/images/`:
+- `hero-fishing.jpg` - Hero background image
+- `products/[product-name].jpg` - Individual product images
+
+## 📱 Responsive Design
+
+The website is fully responsive with breakpoints:
+- Mobile: < 640px
+- Tablet: 640px - 1024px
+- Desktop: > 1024px
+
+## ♿ Accessibility
+
+- Semantic HTML structure
+- ARIA labels on interactive elements
+- Keyboard navigation support
+- Focus indicators
+- Color contrast compliant
+
+## 📧 Contact
+
+**American Made Seafood**
+- Location: Fernandina Beach, Florida
+- Email: info@amseafood.com
+- Phone: (555) 555-5555
+
+---
+
+Built with ❤️ for American fisheries and sustainable seafood.
