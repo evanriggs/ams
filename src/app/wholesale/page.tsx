@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Section, SectionHeader, Button, Card, CardTitle, CardContent, InputField, TextareaField, SelectField } from '@/components/ui';
 
@@ -77,7 +77,7 @@ interface FormData {
   message: string;
 }
 
-export default function WholesalePage() {
+function WholesaleContent() {
   const searchParams = useSearchParams();
   const preselectedProduct = searchParams.get('product') || '';
   
@@ -465,6 +465,21 @@ export default function WholesalePage() {
         </div>
       </Section>
     </>
+  );
+}
+
+export default function WholesalePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ocean-deep mx-auto mb-4"></div>
+          <p className="text-driftwood">Loading...</p>
+        </div>
+      </div>
+    }>
+      <WholesaleContent />
+    </Suspense>
   );
 }
 
